@@ -1,0 +1,408 @@
+/* style.css */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    color: white;
+    background-color: #000; /* Fallback background */
+}
+
+/* --- SCREEN 1: START PAGE --- */
+.screen-start {
+    /* Uses your intro image */
+    background-image: url('images/intro.jpeg');
+    background-size: cover;
+    background-position: center;
+    position: fixed; /* Makes it full screen */
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100; /* On top of everything */
+}
+
+.screen-start .btn-action {
+    font-size: 2rem;
+    padding: 20px 40px;
+    background-color: #ffd700;
+    color: black;
+    border: 3px solid white;
+    box-shadow: 0 0 20px white;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+.screen-start .btn-action:hover {
+    transform: scale(1.1);
+}
+
+/* --- MAIN 3-COLUMN LAYOUT --- */
+.game-wrapper {
+    /* Uses your main background image */
+    background-image: url('images/bg.jpeg');
+    background-size: cover; /* You can change to 'repeat' */
+    background-position: center;
+    
+    display: grid;
+    /* Sides are smaller, center is bigger */
+    grid-template-columns: 2fr 5fr 2fr; 
+    align-items: flex-start;
+    gap: 20px;
+    padding: 20px;
+    min-height: 100vh;
+    box-sizing: border-box; /* Ensures padding doesn't break layout */
+}
+
+.game-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #FFD700; /* Gold color */
+    text-shadow: 2px 2px 4px #000;
+    margin-top: 0;
+}
+
+.game-container {
+    /* This is the center column */
+    background-color: rgba(0, 0, 0, 0.3); /* Slight dark overlay */
+    border-radius: 8px;
+    padding: 20px;
+}
+
+/* --- Money Boards (Columns 1 & 3) --- */
+.money-board {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.money-bar {
+    /* Use a gold gradient if you don't have a bar image */
+    background: linear-gradient(145deg, #ffd700, #f0c300);
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: black;
+    text-shadow: 1px 1px 1px rgba(255,255,255,0.5);
+    transition: all 0.5s ease;
+    border: 2px solid #b8860b;
+
+    /* MODIFIED: Use Flexbox to align strikethrough text */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 1.5em; /* Keep bars consistent height */
+}
+
+/* --- NEW: STYLES FOR STRIKETHROUGH --- */
+.val-struck {
+    text-decoration: line-through;
+    color: #333;
+    opacity: 0.7;
+    font-size: 0.9em;
+    margin-right: 8px;
+}
+
+.val-new {
+    color: #fff;
+    font-weight: bold;
+    background-color: #c0392b; /* Red badge */
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 0.95em;
+}
+
+/* MODIFIED: This is the Progressive Revelation */
+.money-bar.revealed {
+    background: #333;
+    border-color: #555;
+    opacity: 0.6;
+}
+
+/* NEW: Style for revealed volatile items */
+.money-bar.revealed .val-new {
+    background-color: #444; /* Darken the badge */
+    color: #888;
+}
+
+.money-bar.revealed .val-struck {
+    color: #777; /* Darken the strikethrough */
+}
+
+/* NEW: If a normal bar is revealed, strikethrough its text */
+.money-bar.revealed > span:only-child { 
+    text-decoration: line-through;
+    color: #111;
+    opacity: 0.7;
+}
+/* --- END STRIKETHROUGH STYLES --- */
+
+
+/* --- Briefcase Grid (Column 2) --- */
+.briefcase-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    gap: 15px;
+}
+
+.case-form {
+    display: contents; /* Makes the form not affect layout */
+}
+
+.case-button-visual {
+    /* Your closed case image */
+    background-image: url('images/closed_briefcase.png');
+    background-color: transparent;
+    border: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 80px; /* Adjust based on your image aspect ratio */
+    cursor: pointer;
+    position: relative; /* Needed to position the number */
+    transition: all 0.3s ease;
+}
+
+.case-button-visual:not(:disabled):hover {
+    transform: scale(1.1); /* The "lift" effect */
+}
+
+/* Style for the OPEN case */
+.case-button-visual.is-open {
+    /* Your open case image */
+    background-image: url('images/briefcase.png');
+    cursor: not-allowed;
+}
+
+/* Player's chosen case */
+.player-case-box {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.case-button-visual.is-player {
+    height: 100px; /* Make it bigger */
+    width: 130px;
+    margin: 0 auto;
+    cursor: not-allowed;
+    /* Add a glow to the player's case */
+    box-shadow: 0 0 20px #ffd700;
+}
+
+/* Text on the cases */
+.case-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: white;
+    text-shadow: 2px 2px 2px #000;
+}
+
+.case-value {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: black; /* To show on the white inside of the case */
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 5px;
+    border-radius: 3px;
+    width: 80%; /* Ensure it fits */
+    text-align: center;
+}
+
+/* Hide number/value when not needed */
+.case-button-visual.is-open .case-number { display: none; }
+.case-button-visual:not(.is-open) .case-value { display: none; }
+
+/* --- CSS Animation (The "Flip") --- */
+.case-button-visual.animate-open {
+    animation: flip-open 0.8s forwards;
+}
+
+@keyframes flip-open {
+    0% {
+        transform: rotateY(0deg) scale(1);
+    }
+    50% {
+        transform: rotateY(90deg) scale(1.1);
+    }
+    100% {
+        transform: rotateY(0deg) scale(1);
+    }
+}
+
+
+/* --- Screens 3 & 4 (Offer & End) --- */
+.offer-box, .screen-end {
+    background-color: rgba(0, 0, 0, 0.7);
+    border: 2px solid #ffd700;
+    border-radius: 8px;
+    padding: 30px;
+    width: 80%;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    text-align: center;
+}
+.offer-amount {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #27ae60;
+    margin: 10px 0 20px;
+}
+.offer-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.btn-action {
+    font-size: 1.2rem;
+    padding: 15px 30px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+.btn-deal { background-color: #27ae60; color: white; }
+.btn-no-deal { background-color: #c0392b; color: white; }
+.btn-action:hover { transform: scale(1.05); }
+
+.final-winnings {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #ffd700;
+}
+
+/* --- Volatility Event (Feature #1) --- */
+.flash-message {
+    background-color: #e74c3c;
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: flash-fade 0.5s ease-out;
+}
+
+/* --- NEW: FEEDBACK MESSAGE STYLES --- */
+.feedback-message {
+    color: white;
+    padding: 15px;
+    border-radius: 8px;
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+    animation: flash-fade 0.5s ease-out; /* Reuse existing animation */
+}
+.feedback-message.good {
+    background-color: #27ae60; /* Green */
+}
+.feedback-message.bad {
+    background-color: #c0392b; /* Red */
+}
+.feedback-message.neutral {
+    background-color: #34495e; /* Blue/Grey */
+}
+/* --- END FEEDBACK STYLES --- */
+/* --- NEW: RULES SCREEN --- */
+.rules-box {
+    background-color: rgba(0, 0, 0, 0.85);
+    border: 3px solid #ffd700;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 600px;
+    color: white;
+    text-align: left;
+    line-height: 1.6;
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+}
+.rules-box h2 {
+    color: #ffd700;
+    text-align: center;
+    margin-top: 0;
+}
+.rules-box ul {
+    margin-bottom: 20px;
+}
+.rules-box li {
+    margin-bottom: 10px;
+}
+
+/* --- NEW: WELCOME BACK / RESUME SCREEN --- */
+.screen-welcome-back {
+    background-color: rgba(0, 0, 0, 0.8);
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 200;
+}
+.resume-box {
+    background-color: #fff;
+    color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    text-align: center;
+    border: 5px solid #1a237e;
+    box-shadow: 0 0 50px black;
+}
+.resume-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    margin-top: 20px;
+}
+.btn-resume {
+    background-color: #27ae60;
+    color: white;
+}
+.btn-new {
+    background-color: #c0392b;
+    color: white;
+}
+
+/* --- NEW: OFFER HISTORY --- */
+.history-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+.history-container h4 {
+    margin: 0 0 10px 0;
+    color: #ccc;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.history-list {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.history-tag {
+    background-color: #ffd700;
+    color: black;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+@keyframes flash-fade {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
