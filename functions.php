@@ -1,5 +1,5 @@
 <?php
-// functions.php
+// functions.php file
 
 function get_money_values() {
     return [
